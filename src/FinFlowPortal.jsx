@@ -6,7 +6,7 @@ import {
   Building2, User, Hash, Calendar, Tag, Printer,
   TrendingUp, TrendingDown, DollarSign, ArrowUpRight,
   Download, Shield, Star, Sparkles, AlertCircle,
-  CheckCircle2, XCircle, HelpCircle, ArrowRight, Settings, Menu, Eye, EyeOff
+  CheckCircle2, XCircle, HelpCircle, ArrowRight, Settings, Menu, Eye, EyeOff, Home
 } from "lucide-react";
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid,
@@ -119,9 +119,9 @@ function Input({ label, error, className = "", ...props }) {
       <input
         className={`w-full px-3.5 py-2.5 rounded-xl border text-sm transition-all outline-none
           ${error
-            ? "border-red-400 dark:border-red-900 bg-red-50 dark:bg-red-950/10 focus:ring-2 focus:ring-red-200 dark:focus:ring-red-950"
+            ? "border-red-400 dark:border-red-900 bg-red-50 dark:bg-red-950/10 focus:ring-2 focus:ring-red-200 dark:focus:ring-red-900"
             : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900/40 focus:border-indigo-500 dark:focus:border-indigo-600"
-          } text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600`}
+          } text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500`}
         {...props}
       />
       {error && <p className="text-xs text-red-500">{error}</p>}
@@ -132,7 +132,7 @@ function Input({ label, error, className = "", ...props }) {
 function Button({ children, variant = "primary", size = "md", className = "", ...props }) {
   const variants = {
     primary: "bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-200 dark:shadow-indigo-900/40 border border-indigo-500/10",
-    secondary: "bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200/10",
+    secondary: "bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700",
     ghost: "hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300",
     danger: "bg-red-500 hover:bg-red-600 text-white border border-red-500/10",
     emerald: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-200 dark:shadow-emerald-900/40 border border-emerald-500/10",
@@ -147,6 +147,103 @@ function Button({ children, variant = "primary", size = "md", className = "", ..
     >
       {children}
     </motion.button>
+  );
+}
+
+// ─── WELCOME HOME PAGE ───────────────────────────────────────────────────────
+
+function WelcomeHome({ setActiveTab }) {
+  return (
+    <div className="space-y-10">
+      {/* Hero Card with stunning glassmorphism/gradient glow */}
+      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-indigo-50 via-slate-50 to-white dark:from-indigo-950/20 dark:via-slate-900/10 dark:to-transparent border border-slate-200 dark:border-slate-800 p-8 sm:p-10 shadow-xl">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.05),transparent_50%)]" />
+        <div className="relative z-10 max-w-2xl space-y-4">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900/50">
+            <Sparkles size={11} /> Unified Billing Engine
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+            The Ultimate Financial Dashboard for Modern Startup Teams.
+          </h2>
+          <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base leading-relaxed font-semibold">
+            FinFlow simplifies subscription plan selection, custom invoice generation, and revenue analytics tracking. Designed with visual elegance to monitor your business cashflow.
+          </p>
+          <div className="flex flex-wrap gap-3 pt-2">
+            <Button variant="primary" onClick={() => setActiveTab("invoice")}>
+              <Plus size={15} /> Create An Invoice
+            </Button>
+            <Button variant="secondary" onClick={() => setActiveTab("pricing")}>
+              Explore Pricing Plans <ArrowRight size={14} />
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Stats Vitals Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {[
+          { label: "Active Business Clients", value: "42 clients", icon: User, color: "text-indigo-650 dark:text-indigo-400", bg: "bg-indigo-50 dark:bg-indigo-950/20" },
+          { label: "Invoices Dispatched", value: "284 invoices", icon: FileText, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-50 dark:bg-emerald-950/20" },
+          { label: "System Uptime Rate", value: "99.98% uptime", icon: Zap, color: "text-amber-500 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-950/20" },
+          { label: "Secured Transactions", value: "$438,200.00", icon: Shield, color: "text-slate-700 dark:text-slate-300", bg: "bg-slate-100 dark:bg-slate-800" },
+        ].map(s => {
+          const Icon = s.icon;
+          return (
+            <Card key={s.label} className="p-4 border-slate-200 dark:border-slate-800">
+              <div className={`w-8 h-8 rounded-xl flex items-center justify-center mb-3 ${s.bg} ${s.color}`}>
+                <Icon size={15} />
+              </div>
+              <div className="text-lg font-black text-slate-900 dark:text-white tracking-tight">{s.value}</div>
+              <div className="text-xs text-slate-400 dark:text-slate-500 mt-0.5 font-bold">{s.label}</div>
+            </Card>
+          );
+        })}
+      </div>
+
+      {/* Step-by-Step Platform Workflow */}
+      <div className="space-y-6">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">// Step-by-Step Platform Workflow</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { step: "01", title: "Select Subscription Tier", desc: "Choose between Starter, Growth, or Enterprise plans. Features toggle instantly with easy 20% annual discount switch." },
+            { step: "02", title: "Generate Custom Invoices", desc: "Create, add, or remove dynamic line items. Our calculations engine automatically updates tax, discounts, and final subtotals." },
+            { step: "03", title: "Audit History & Insights", desc: "Track recent transaction statuses (Paid, Pending, Failed). Double-click to pull interactive receipts and print PDFs." },
+          ].map(item => (
+            <div key={item.step} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 space-y-3 relative overflow-hidden shadow-sm">
+              <div className="text-4xl font-black text-slate-100 dark:text-slate-800/40 absolute right-4 top-2 select-none">
+                {item.step}
+              </div>
+              <h4 className="text-base font-bold text-slate-900 dark:text-white relative z-10">{item.title}</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed relative z-10 font-medium">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* FinFlow Platform Key Core Highlights */}
+      <div className="space-y-6">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">// FinFlow Core Platform Highlights</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            { title: "Subscription Billing Engine", desc: "Interactive plan switcher with live toggles for annual and monthly discounts.", icon: Zap, color: "text-indigo-600 dark:text-indigo-400" },
+            { title: "Dynamic Invoice Builder", desc: "Perform instant client invoice generation with active add/remove line items.", icon: FileText, color: "text-emerald-600 dark:text-emerald-400" },
+            { title: "Real-time Revenue Charting", desc: "View business analytics, expenses and monthly cashflow visual trends using Recharts.", icon: BarChart2, color: "text-violet-600 dark:text-violet-400" },
+            { title: "Secure Checkout Payment", desc: "Validate payment card details instantly inside a modern popup payment modal.", icon: Shield, color: "text-amber-500 dark:text-amber-400" },
+          ].map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <motion.div key={idx} whileHover={{ y: -4 }} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl space-y-3 shadow-sm">
+                <div className={`w-9 h-9 rounded-xl flex items-center justify-center bg-slate-50 dark:bg-slate-800/80 ${item.color}`}>
+                  <Icon size={16} />
+                </div>
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white">{item.title}</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-semibold">{item.desc}</p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -222,7 +319,7 @@ function CheckoutModal({ plan, annual, onClose, triggerToast }) {
           ) : (
             <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-6 space-y-5 max-h-[75vh] overflow-y-auto custom-scroll">
               {/* Invoice summary */}
-              <div className="bg-slate-50 dark:bg-slate-850/80 border border-slate-100 dark:border-slate-800 rounded-2xl p-4 space-y-2">
+              <div className="bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-slate-500 dark:text-slate-400">{plan.name} Plan ({annual ? "Annual" : "Monthly"})</span>
                   <span className="text-slate-700 dark:text-slate-200 font-medium">{fmt(price)}/mo</span>
@@ -250,7 +347,7 @@ function CheckoutModal({ plan, annual, onClose, triggerToast }) {
                     value={form.card}
                     onChange={e => setForm(f => ({ ...f, card: fmtCard(e.target.value) }))}
                     placeholder="4242 4242 4242 4242"
-                    className={`w-full px-3.5 py-2.5 pr-10 rounded-xl border text-sm transition-all outline-none ${errors.card ? "border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950/20 focus:ring-2 focus:ring-red-200" : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900/40 focus:border-indigo-400 dark:focus:border-indigo-600"} text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 font-mono`}
+                    className={`w-full px-3.5 py-2.5 pr-10 rounded-xl border text-sm transition-all outline-none ${errors.card ? "border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-905/20 focus:ring-2 focus:ring-red-200" : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900/40 focus:border-indigo-400 dark:focus:border-indigo-600"} text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 font-mono`}
                   />
                   <CreditCard size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 </div>
@@ -291,10 +388,11 @@ function ReceiptModal({ transaction, onClose }) {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md no-print"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <motion.div initial={{ scale: 0.92, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.92, y: 20 }}
+        id="receipt-print"
         className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl w-full max-w-xl overflow-hidden"
       >
         <div className="flex items-center justify-between p-6 border-b border-slate-100 dark:border-slate-800">
@@ -302,7 +400,7 @@ function ReceiptModal({ transaction, onClose }) {
             <h2 className="text-lg font-bold text-slate-900 dark:text-white">Transaction Invoice</h2>
             <p className="text-xs text-indigo-600 dark:text-indigo-400 font-mono mt-0.5">{transaction.id}</p>
           </div>
-          <button onClick={onClose} className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-500">
+          <button onClick={onClose} className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-500 no-print">
             <X size={18} />
           </button>
         </div>
@@ -319,17 +417,17 @@ function ReceiptModal({ transaction, onClose }) {
             </div>
           </div>
 
-          <div className="border border-slate-100 dark:border-slate-800 rounded-2xl overflow-hidden">
+          <div className="border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-slate-50 dark:bg-slate-800/60">
-                <tr className="border-b border-slate-100 dark:border-slate-800">
+                <tr className="border-b border-slate-200 dark:border-slate-800">
                   <th className="text-left px-4 py-3 text-xs font-bold text-slate-400 uppercase">Item Description</th>
                   <th className="text-center px-4 py-3 text-xs font-bold text-slate-400 uppercase w-16">Qty</th>
                   <th className="text-right px-4 py-3 text-xs font-bold text-slate-400 uppercase w-28">Unit Price</th>
                   <th className="text-right px-4 py-3 text-xs font-bold text-slate-400 uppercase w-28">Total</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
+              <tbody className="divide-y divide-slate-200 dark:divide-slate-800/50">
                 {transaction.items.map((item, idx) => (
                   <tr key={idx}>
                     <td className="px-4 py-3 text-slate-700 dark:text-slate-200 font-medium">{item.desc}</td>
@@ -342,22 +440,22 @@ function ReceiptModal({ transaction, onClose }) {
             </table>
           </div>
 
-          <div className="border-t border-slate-100 dark:border-slate-800 pt-4 space-y-2 ml-auto max-w-[240px]">
+          <div className="border-t border-slate-200 dark:border-slate-800 pt-4 space-y-2 ml-auto max-w-[240px]">
             <div className="flex justify-between text-sm">
               <span className="text-slate-400">Subtotal</span>
-              <span className="text-slate-700 dark:text-slate-200">{fmt(subtotal)}</span>
+              <span className="text-slate-700 dark:text-slate-200 font-semibold">{fmt(subtotal)}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-slate-400">VAT / Tax (10%)</span>
-              <span className="text-slate-700 dark:text-slate-200">{fmt(tax)}</span>
+              <span className="text-slate-700 dark:text-slate-200 font-semibold">{fmt(tax)}</span>
             </div>
-            <div className="flex justify-between font-black text-lg border-t border-slate-250 dark:border-slate-800 pt-2">
+            <div className="flex justify-between font-black text-lg border-t border-slate-200 dark:border-slate-800 pt-2">
               <span className="text-slate-900 dark:text-white">Total Paid</span>
-              <span className="text-emerald-600 dark:text-emerald-400">{fmt(total)}</span>
+              <span className="text-emerald-600 dark:text-emerald-400 font-bold">{fmt(total)}</span>
             </div>
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+          <div className="flex justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-800 no-print">
             <Button variant="secondary" onClick={onClose}>Close</Button>
             <Button variant="primary" onClick={() => window.print()}><Printer size={14} /> Print Receipt</Button>
           </div>
@@ -431,7 +529,7 @@ function PricingSection({ triggerToast }) {
                     ${price}
                   </motion.span>
                 </span>
-                <span className="text-sm text-slate-400 dark:text-slate-500">/mo</span>
+                <span className="text-sm text-slate-400 dark:text-slate-50">/mo</span>
                 {annual && <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold ml-1">–20%</span>}
               </div>
               <ul className="space-y-2.5 mb-7 flex-1">
@@ -515,16 +613,6 @@ function InvoiceBuilder({ triggerToast }) {
 
   return (
     <div className="space-y-6">
-      {/* Print styles injected */}
-      <style>{`
-        @media print {
-          body * { visibility: hidden !important; }
-          #invoice-print, #invoice-print * { visibility: visible !important; }
-          #invoice-print { position: fixed; left: 0; top: 0; width: 100%; background: white !important; color: black !important; padding: 40px; box-shadow: none !important; border: none !important; border-radius: 0 !important; }
-          .no-print { display: none !important; }
-        }
-      `}</style>
-
       {/* Controls */}
       <div className="no-print grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <Input label="Your Company" placeholder="FinFlow Inc." value={meta.sender} onChange={e => setMeta(m => ({ ...m, sender: e.target.value }))} />
@@ -540,7 +628,7 @@ function InvoiceBuilder({ triggerToast }) {
         <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-8">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <div className="w-8 h-8 bg-indigo-650 rounded-lg flex items-center justify-center shadow-md">
+              <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-md">
                 <FileText size={14} className="text-white" />
               </div>
               <span className="text-lg font-black text-slate-900 dark:text-white tracking-tight">{meta.sender || "Your Company"}</span>
@@ -562,20 +650,20 @@ function InvoiceBuilder({ triggerToast }) {
             <div className="space-y-1">
               <div className="flex justify-start sm:justify-end gap-6 text-sm">
                 <span className="text-slate-400">Issued</span>
-                <span className="text-slate-750 dark:text-slate-200 font-semibold">{meta.issued ? fmtDate(meta.issued) : "—"}</span>
+                <span className="text-slate-700 dark:text-slate-200 font-semibold">{meta.issued ? fmtDate(meta.issued) : "—"}</span>
               </div>
               <div className="flex justify-start sm:justify-end gap-6 text-sm">
                 <span className="text-slate-400">Due Date</span>
-                <span className="text-slate-750 dark:text-slate-200 font-semibold">{meta.due ? fmtDate(meta.due) : "—"}</span>
+                <span className="text-slate-700 dark:text-slate-200 font-semibold">{meta.due ? fmtDate(meta.due) : "—"}</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Line items table wrapped to prevent responsive layout stretch */}
-        <div className="table-responsive-container custom-scroll mb-6 rounded-xl border border-slate-150 dark:border-slate-800">
+        <div className="table-responsive-container custom-scroll mb-6 rounded-xl border border-slate-200 dark:border-slate-800">
           <table className="w-full text-sm min-w-[600px] sm:min-w-0">
-            <thead className="bg-slate-55 dark:bg-slate-800/70 border-b border-slate-100 dark:border-slate-850">
+            <thead className="bg-slate-50 dark:bg-slate-800/70 border-b border-slate-100 dark:border-slate-800">
               <tr>
                 <th className="text-left px-4 py-3 text-xs font-bold text-slate-400 uppercase tracking-wider">Description</th>
                 <th className="text-center px-4 py-3 text-xs font-bold text-slate-400 uppercase tracking-wider w-20">Qty</th>
@@ -596,16 +684,16 @@ function InvoiceBuilder({ triggerToast }) {
                     </td>
                     <td className="px-4 py-2.5">
                       <input type="number" min="1" value={item.qty} onChange={e => updateItem(item.id, "qty", Math.max(1, +e.target.value))}
-                        className="w-full text-center bg-transparent text-slate-750 dark:text-slate-200 outline-none focus:bg-slate-100/50 dark:focus:bg-slate-800/40 rounded px-1.5 py-1 transition-all text-sm font-semibold" />
+                        className="w-full text-center bg-transparent text-slate-700 dark:text-slate-200 outline-none focus:bg-slate-100/50 dark:focus:bg-slate-800/40 rounded px-1.5 py-1 transition-all text-sm font-semibold" />
                     </td>
                     <td className="px-4 py-2.5">
                       <input type="number" min="0" value={item.price} onChange={e => updateItem(item.id, "price", +e.target.value)}
-                        className="w-full text-right bg-transparent text-slate-755 dark:text-slate-200 outline-none focus:bg-slate-100/50 dark:focus:bg-slate-800/40 rounded px-1.5 py-1 transition-all text-sm font-semibold" />
+                        className="w-full text-right bg-transparent text-slate-700 dark:text-slate-200 outline-none focus:bg-slate-100/50 dark:focus:bg-slate-800/40 rounded px-1.5 py-1 transition-all text-sm font-semibold" />
                     </td>
                     <td className="px-4 py-2.5 text-right font-bold text-slate-800 dark:text-slate-100">{fmt(item.qty * item.price)}</td>
                     <td className="px-2 no-print text-center">
                       <motion.button whileTap={{ scale: 0.85 }} onClick={() => removeItem(item.id)}
-                        className="p-1.5 rounded-lg text-slate-300 dark:text-slate-650 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 transition-all opacity-100 sm:opacity-0 group-hover:opacity-100">
+                        className="p-1.5 rounded-lg text-slate-300 dark:text-slate-600 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-955/20 transition-all opacity-100 sm:opacity-0 group-hover:opacity-100">
                         <Trash2 size={13} />
                       </motion.button>
                     </td>
@@ -617,7 +705,7 @@ function InvoiceBuilder({ triggerToast }) {
           {errors.items && <p className="text-xs text-red-500 px-4 py-2 bg-red-50 dark:bg-red-950/20">{errors.items}</p>}
         </div>
 
-        <button onClick={addItem} className="no-print flex items-center gap-2 text-sm text-indigo-650 dark:text-indigo-400 hover:text-indigo-755 font-bold mb-6 transition-colors">
+        <button onClick={addItem} className="no-print flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 font-bold mb-6 transition-colors">
           <Plus size={14} /> Add Line Item
         </button>
 
@@ -625,7 +713,7 @@ function InvoiceBuilder({ triggerToast }) {
         <div className="no-print flex gap-2 mb-6 max-w-sm">
           <input value={discountCode} onChange={e => setDiscountCode(e.target.value)}
             placeholder="Discount code (e.g. SAVE10)"
-            className="flex-1 px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-sm text-slate-850 dark:text-slate-100 outline-none focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900 placeholder:text-slate-400 dark:placeholder:text-slate-650" />
+            className="flex-1 px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-sm text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900 placeholder:text-slate-400 dark:placeholder:text-slate-600" />
           <Button variant="secondary" size="sm" onClick={applyCode}><Tag size={13} /> Apply</Button>
         </div>
         {codeMsg && (
@@ -633,20 +721,20 @@ function InvoiceBuilder({ triggerToast }) {
         )}
 
         {/* Totals */}
-        <div className="ml-auto max-w-xs space-y-2.5 border-t border-slate-100 dark:border-slate-800 pt-4">
+        <div className="ml-auto max-w-xs space-y-2.5 border-t border-slate-200 dark:border-slate-800 pt-4">
           {[
             { label: "Subtotal", value: fmt(subtotal) },
-            ...(appliedDiscount ? [{ label: `Discount (${appliedDiscount}%)`, value: `–${fmt(discountAmt)}`, color: "text-emerald-650 dark:text-emerald-400 font-semibold" }] : []),
+            ...(appliedDiscount ? [{ label: `Discount (${appliedDiscount}%)`, value: `–${fmt(discountAmt)}`, color: "text-emerald-600 dark:text-emerald-400 font-semibold" }] : []),
             { label: `Tax (${taxRate}%)`, value: fmt(taxAmt) },
           ].map(r => (
             <div key={r.label} className="flex justify-between text-sm">
               <span className="text-slate-400 dark:text-slate-500">{r.label}</span>
-              <span className={r.color || "text-slate-750 dark:text-slate-250"}>{r.value}</span>
+              <span className={r.color || "text-slate-700 dark:text-slate-200 font-semibold"}>{r.value}</span>
             </div>
           ))}
-          <div className="flex justify-between font-black text-base pt-2 border-t border-slate-200 dark:border-slate-750">
+          <div className="flex justify-between font-black text-base pt-2 border-t border-slate-200 dark:border-slate-800">
             <span className="text-slate-900 dark:text-white">Total</span>
-            <motion.span key={total} initial={{ scale: 1.1, color: "#4f46e5" }} animate={{ scale: 1, color: "inherit" }} className="text-indigo-650 dark:text-indigo-400">
+            <motion.span key={total} initial={{ scale: 1.1 }} animate={{ scale: 1 }} className="text-indigo-600 dark:text-indigo-400 font-extrabold">
               {fmt(total)}
             </motion.span>
           </div>
@@ -680,7 +768,7 @@ function Transactions({ triggerToast, onViewReceipt }) {
         <div className="relative flex-1">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by client or invoice ID…"
-            className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-sm text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900 placeholder:text-slate-400 dark:placeholder:text-slate-650" />
+            className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-sm text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
         </div>
         <div className="relative">
           <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}
@@ -695,7 +783,7 @@ function Transactions({ triggerToast, onViewReceipt }) {
         <div className="table-responsive-container custom-scroll">
           <table className="w-full min-w-[650px] sm:min-w-0">
             <thead>
-              <tr className="border-b border-slate-150 dark:border-slate-800">
+              <tr className="border-b border-slate-200 dark:border-slate-800">
                 {["Invoice ID", "Client", "Date", "Amount", "Status", "Receipt"].map(h => (
                   <th key={h} className="text-left px-5 py-3.5 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{h}</th>
                 ))}
@@ -718,7 +806,7 @@ function Transactions({ triggerToast, onViewReceipt }) {
                       <motion.button
                         whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                         onClick={() => onViewReceipt(t)}
-                        className="px-3 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-250 dark:border-indigo-900/50 text-indigo-650 dark:text-indigo-400 text-xs font-bold"
+                        className="px-3 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 text-xs font-bold"
                       >
                         View Receipt
                       </motion.button>
@@ -742,7 +830,7 @@ function Transactions({ triggerToast, onViewReceipt }) {
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-750 rounded-xl p-3 shadow-2xl text-sm">
+    <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 shadow-2xl text-sm">
       <p className="font-bold text-slate-800 dark:text-slate-100 mb-1">{label}</p>
       {payload.map(p => (
         <p key={p.name} style={{ color: p.color }} className="font-bold">{p.name}: {fmt(p.value)}</p>
@@ -766,7 +854,7 @@ function Analytics() {
         <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl gap-1 w-max">
           {["Revenue", "Expenses"].map(v => (
             <motion.button key={v} onClick={() => setView(v)}
-              className={`px-4 py-1.5 rounded-lg text-sm font-bold transition-all ${view === v ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-md" : "text-slate-500 dark:text-slate-450"}`}>
+              className={`px-4 py-1.5 rounded-lg text-sm font-bold transition-all ${view === v ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-md" : "text-slate-500 dark:text-slate-400"}`}>
               {v}
             </motion.button>
           ))}
@@ -795,14 +883,14 @@ function Analytics() {
       {/* Summary cards with elegant highlights */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: "Best Month", value: fmt(Math.max(...REVENUE_DATA.map(d => d[view]))), icon: TrendingUp, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-50 dark:bg-emerald-950/20", hoverBorder: "hover:border-emerald-350 hover:shadow-emerald-950/10" },
-          { label: "Worst Month", value: fmt(Math.min(...REVENUE_DATA.map(d => d[view]))), icon: TrendingDown, color: "text-red-500 dark:text-red-400", bg: "bg-red-50 dark:bg-red-950/20", hoverBorder: "hover:border-red-350 hover:shadow-red-950/10" },
-          { label: "YoY Growth", value: "+28.4%", icon: ArrowUpRight, color: "text-indigo-650 dark:text-indigo-400", bg: "bg-indigo-50 dark:bg-indigo-950/20", hoverBorder: "hover:border-indigo-350 hover:shadow-indigo-950/10" },
-          { label: "Total Annual", value: fmt(total), icon: DollarSign, color: "text-slate-700 dark:text-slate-200", bg: "bg-slate-100 dark:bg-slate-800", hoverBorder: "hover:border-slate-350 hover:shadow-slate-950/10" },
+          { label: "Best Month", value: fmt(Math.max(...REVENUE_DATA.map(d => d[view]))), icon: TrendingUp, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-50 dark:bg-emerald-950/20", hoverBorder: "hover:border-emerald-500/30 hover:shadow-emerald-950/10" },
+          { label: "Worst Month", value: fmt(Math.min(...REVENUE_DATA.map(d => d[view]))), icon: TrendingDown, color: "text-red-500 dark:text-red-400", bg: "bg-red-50 dark:bg-red-950/20", hoverBorder: "hover:border-red-500/30 hover:shadow-red-950/10" },
+          { label: "YoY Growth", value: "+28.4%", icon: ArrowUpRight, color: "text-indigo-600 dark:text-indigo-400", bg: "bg-indigo-50 dark:bg-indigo-950/20", hoverBorder: "hover:border-indigo-500/30 hover:shadow-indigo-950/10" },
+          { label: "Total Annual", value: fmt(total), icon: DollarSign, color: "text-slate-700 dark:text-slate-200", bg: "bg-slate-100 dark:bg-slate-800", hoverBorder: "hover:border-slate-500/30 hover:shadow-slate-950/10" },
         ].map(s => {
           const Icon = s.icon;
           return (
-            <motion.div key={s.label} whileHover={{ y: -3 }} className={`bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800/80 rounded-2xl p-4 shadow-sm transition-all duration-355 ${s.hoverBorder}`}>
+            <motion.div key={s.label} whileHover={{ y: -3 }} className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-4 shadow-sm transition-all duration-300 ${s.hoverBorder}`}>
               <div className={`w-8 h-8 rounded-xl flex items-center justify-center mb-3 ${s.bg} ${s.color} border border-transparent`}>
                 <Icon size={15} />
               </div>
@@ -819,6 +907,7 @@ function Analytics() {
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 
 const NAV_ITEMS = [
+  { id: "home",         label: "Welcome Home", icon: Home },
   { id: "pricing",      label: "Pricing Plans", icon: Zap },
   { id: "invoice",      label: "Invoice Builder", icon: FileText },
   { id: "transactions", label: "Transactions", icon: Clock },
@@ -827,7 +916,7 @@ const NAV_ITEMS = [
 
 export default function FinFlowPortal() {
   const [dark, setDark] = useDark();
-  const [activeTab, setActiveTab] = useState("pricing");
+  const [activeTab, setActiveTab] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedReceipt, setSelectedReceipt] = useState(null);
 
@@ -838,7 +927,7 @@ export default function FinFlowPortal() {
     setTimeout(() => setToastAlert(null), 3000);
   };
 
-  const tabs = { pricing: PricingSection, invoice: InvoiceBuilder, transactions: Transactions, analytics: Analytics };
+  const tabs = { home: WelcomeHome, pricing: PricingSection, invoice: InvoiceBuilder, transactions: Transactions, analytics: Analytics };
   const ActiveComponent = tabs[activeTab];
 
   return (
@@ -881,7 +970,9 @@ export default function FinFlowPortal() {
             return (
               <motion.button key={item.id} onClick={() => setActiveTab(item.id)} whileTap={{ scale: 0.97 }}
                 className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all
-                  ${active ? "bg-indigo-650 text-white shadow-md shadow-indigo-200 dark:shadow-indigo-900/40" : "text-slate-650 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white"}`}>
+                  ${active 
+                    ? "!bg-indigo-600 !text-white shadow-lg shadow-indigo-600/10 dark:shadow-indigo-900/40" 
+                    : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white"}`}>
                 <Icon size={16} />
                 {item.label}
                 {active && <motion.div layoutId="sidebar-dot" className="ml-auto w-1.5 h-1.5 rounded-full bg-white/50" />}
@@ -893,7 +984,7 @@ export default function FinFlowPortal() {
         {/* Dark mode toggle & developer user info */}
         <div className="p-4 border-t border-slate-100 dark:border-slate-800 space-y-3">
           <motion.button whileTap={{ scale: 0.95 }} onClick={() => setDark(d => !d)}
-            className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-450 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors">
+            className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors">
             {dark ? <Sun size={16} /> : <Moon size={16} />}
             {dark ? "Light Mode" : "Dark Mode"}
           </motion.button>
@@ -901,7 +992,7 @@ export default function FinFlowPortal() {
             <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">JD</div>
             <div className="min-w-0">
               <div className="text-xs font-bold text-slate-700 dark:text-slate-200 truncate">Jane Doe</div>
-              <div className="text-xs text-slate-400 dark:text-slate-550 truncate font-semibold">Growth Plan</div>
+              <div className="text-xs text-slate-400 dark:text-slate-500 truncate font-semibold">Growth Plan</div>
             </div>
           </div>
         </div>
@@ -912,7 +1003,7 @@ export default function FinFlowPortal() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-350 transition-colors"
+            className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors"
           >
             <Menu size={20} />
           </button>
@@ -977,7 +1068,9 @@ export default function FinFlowPortal() {
                         setMobileMenuOpen(false);
                       }}
                       className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all
-                        ${active ? "bg-indigo-650 text-white shadow-md shadow-indigo-200" : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/80"}`}
+                        ${active 
+                          ? "!bg-indigo-600 !text-white shadow-md shadow-indigo-600/10" 
+                          : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white"}`}
                     >
                       <Icon size={16} />
                       {item.label}
@@ -986,12 +1079,12 @@ export default function FinFlowPortal() {
                 })}
               </nav>
 
-              <div className="border-t border-slate-150 dark:border-slate-800 pt-4 space-y-3">
+              <div className="border-t border-slate-200 dark:border-slate-800 pt-4 space-y-3">
                 <div className="flex items-center gap-3 px-4">
                   <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">JD</div>
                   <div className="min-w-0">
                     <div className="text-xs font-bold text-slate-700 dark:text-slate-200 truncate">Jane Doe</div>
-                    <div className="text-xs text-slate-400 dark:text-slate-550 truncate font-semibold">Growth Plan</div>
+                    <div className="text-xs text-slate-400 dark:text-slate-500 truncate font-semibold">Growth Plan</div>
                   </div>
                 </div>
               </div>
@@ -1007,6 +1100,7 @@ export default function FinFlowPortal() {
           <div className="no-print mb-8">
             <motion.h1 key={activeTab} initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
               className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+              {activeTab === "home" && "Overview & QuickStart"}
               {activeTab === "pricing" && "Choose Your Plan"}
               {activeTab === "invoice" && "Invoice Builder"}
               {activeTab === "transactions" && "Transaction History"}
@@ -1014,6 +1108,7 @@ export default function FinFlowPortal() {
             </motion.h1>
             <motion.p key={`sub-${activeTab}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
               className="text-slate-500 dark:text-slate-400 mt-1.5 text-sm sm:text-base font-medium">
+              {activeTab === "home" && "Welcome to FinFlow. Simple billing tools, powerful metrics."}
               {activeTab === "pricing" && "Simple, transparent pricing. Upgrade or downgrade anytime."}
               {activeTab === "invoice" && "Create and send professional invoices in seconds."}
               {activeTab === "transactions" && "Track and manage all your billing activity."}
@@ -1024,6 +1119,7 @@ export default function FinFlowPortal() {
           <AnimatePresence mode="wait">
             <motion.div key={activeTab} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.22 }}>
               {/* Dynamic render components mapping */}
+              {activeTab === "home" && <WelcomeHome setActiveTab={setActiveTab} />}
               {activeTab === "pricing" && <PricingSection triggerToast={triggerToast} />}
               {activeTab === "invoice" && <InvoiceBuilder triggerToast={triggerToast} />}
               {activeTab === "transactions" && <Transactions triggerToast={triggerToast} onViewReceipt={setSelectedReceipt} />}

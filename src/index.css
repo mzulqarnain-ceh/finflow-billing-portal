@@ -10,3 +10,49 @@
 html { scroll-behavior: smooth; }
 body { background: #f8fafc; }
 html.dark body { background: #020617; }
+
+/* Global Custom Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.5);
+}
+
+/* Global Print Stylesheet for Invoices & Receipts */
+@media print {
+  body {
+    background: white !important;
+  }
+  body * {
+    visibility: hidden !important;
+  }
+  #invoice-print, #invoice-print *, #receipt-print, #receipt-print * {
+    visibility: visible !important;
+  }
+  #invoice-print, #receipt-print {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    background: white !important;
+    color: black !important;
+    padding: 24px !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+  .no-print, .no-print * {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
+
